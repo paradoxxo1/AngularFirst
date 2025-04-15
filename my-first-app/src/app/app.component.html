@@ -1,6 +1,8 @@
 <h1>{{helloWorld}}, Hi Guys!</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi asperiores rem, quos quaerat veritatis a expedita accusantium architecto cumque, at beatae laborum ea, laudantium facere dolorum porro error quod dolores.</p>
-
-<app-home></app-home>
-<app-about></app-about>
-<app-contact></app-contact>
+<button (click)="clickMe()">Click Me</button>
+<p [class]="pClassName">Lorem ipsum dolor sit amet.</p>
+<input type="text" [(ngModel)]="helloWorld">
+<br/>
+<br/>
+<br/>
+<textarea [(ngModel)]="helloWorld" ></textarea>
