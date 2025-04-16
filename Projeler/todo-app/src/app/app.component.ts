@@ -1,75 +1,70 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule],
-  template: `
-    <h1>Kredi Hesaplama</h1>
-    <div>
-      <label>Kredi Tutarı</label>
-      <input [(ngModel)]="krediTutari">
-    </div>
-    <div>
-      <label> Taksit Sayısı </label>
-      <select [(ngModel)]="taksitSayisi">
-        @for(data of taksitler; track data){
-          <option>{{data}}</option>
-        }
-      </select>
-    </div>
-    <div>
-      <button (click)="hesapla()">Hesapla</button>
-      <label >{{this.result}}</label>
-    </div>
-    <hr>
-    <table>
-      <thead>
-        <tr>
-          <th>Taksit</th>
-          <th>Taksit Tutarı</th>
-          <th>Kalan Geri Ödeme</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (data of odemePlani; track data) {
-          <tr>
-            <td>{{$index+1}}</td>
-            <td>{{data.taksitTutari}}</td>
-            <td>{{data.kalanGeriOdeme}}</td>
-          </tr>
+  imports: [],
+  template:`
+  <h1>Döngüler</h1>
+  <ul>
+    @for(data of todos;track data){
+      <li>
+        İndex: {{ $index }} ||
+        İlk Kayıt mı?: {{ $first }} ||
+        Son Kayıt mı?: {{ $last }} ||
+        Veri: {{data.work}}</li>
+    }
+  </ul>
 
-        }
-      </tbody>
-    </table>
   `
 })
 export class AppComponent {
-  krediTutari: number = 0;
-  taksitSayisi: number = 3;
-  taksitler: number[] = [3, 6, 9, 12, 24];
+ todos: TodoModel[] = [
+  {work:"Example 1", isCompleted: true},
+  {work:"Example 2", isCompleted: true},
+  {work:"Example 3", isCompleted: true},
+ ]
 
-  result: string = ""
+ constructor(){
+  this.save();
+ }
 
-  odemePlani: { taksitTutari: number, kalanGeriOdeme: number }[] = []
+ save(){
+  console.log("------ For döngüsü *-*-*-*-*-*-*-*-*-*");
 
-  hesapla() {
-    const taksitTutari = (this.krediTutari / this.taksitSayisi) * 1.29
-    let toplamGeriOdeme = taksitTutari * this.taksitSayisi
-
-    this.result = `Taksit Tutarı : ${taksitTutari} - Taksit Sayısı : ${this.taksitSayisi} - Toplam Geri Ödeme: ${toplamGeriOdeme}`
-
-    this.odemePlani = [];
-    for (let i = 0; i < this.taksitSayisi; i++) {
-      toplamGeriOdeme -= taksitTutari
-      const data = {
-        taksitTutari: taksitTutari,
-        kalanGeriOdeme: toplamGeriOdeme
-      }
-      this.odemePlani.push(data);
-    }
-
+  for(let i = 0; i < 10; i++){
+    console.log(i);
   }
+
+  console.log("*-*-*-*-*-*-*-*-* Listeyi For ile dönme *-*-*-*-*-*-*-*-*-*");
+
+  for(let i = 0; i < this.todos.length; i++){
+    console.log(this.todos[i].work);
+  }
+
+  console.log("*-*-*-*-*-*-*-*-* listeyi foreach ile dönme *-*-*-*-*-*-*-*-*-*");
+
+  this.todos.forEach((val)=> {
+    console.log(val.work);
+    console.log(val.isCompleted);
+  })
+
+  console.log("*-*-*-*-*-*-*-*-* Listeyi for of ile dönme *-*-*-*-*-*-*-*-*-*");
+
+  for(let data of this.todos){  //for of  da async kodlama yapabiliyoruz
+    console.log(data.work);
+    console.log(data.isCompleted);
+  }
+
+  console.log("*-*-*-*-*-*-*-*-* Listeyi for in ile dönme *-*-*-*-*-*-*-*-*-*");
+
+  for(let index in this.todos){
+    console.log(index);
+  }
+ }
 }
 
+export class TodoModel{
+  work: string = "";
+  isCompleted: boolean = false;
+}
