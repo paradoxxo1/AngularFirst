@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RenklendirDirective } from './renklendir.directive';
-import { RouterOutlet } from '@angular/router';
 import { ValidateDirective } from './validate.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RenklendirDirective, RouterOutlet, ValidateDirective],
+  imports: [ValidateDirective],
   template: `
   <h1>Directive</h1>
   <form>
