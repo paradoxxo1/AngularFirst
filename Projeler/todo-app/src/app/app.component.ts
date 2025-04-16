@@ -4,67 +4,43 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   standalone: true,
   imports: [],
-  template:`
-  <h1>Döngüler</h1>
-  <ul>
-    @for(data of todos;track data){
-      <li>
-        İndex: {{ $index }} ||
-        İlk Kayıt mı?: {{ $first }} ||
-        Son Kayıt mı?: {{ $last }} ||
-        Veri: {{data.work}}</li>
-    }
-  </ul>
-
+  template: `
+  <h1>Şart Blogları</h1>
+  @if(showFirst){
+    <p style="color: {{showFirst  === true ? 'red' : ''}};">Birinci Yazı</p>
+  }
+  @if(showSecond){
+    <p  style="color:  {{showSecond  === true ? 'blue' : ''}};">İkinci Yazı</p>
+  }
+  <hr>
+  <button (click)="show(1)">Birinci Yazıyı göster</button>
+  <button (click)="show(3)">İkinci Yazıyı göster</button>
   `
 })
+
 export class AppComponent {
- todos: TodoModel[] = [
-  {work:"Example 1", isCompleted: true},
-  {work:"Example 2", isCompleted: true},
-  {work:"Example 3", isCompleted: true},
- ]
+  showFirst: boolean = false;
+  showSecond: boolean = false;
 
- constructor(){
-  this.save();
- }
+  show(num: number) {
+    if (num === 1) {
+      this.showFirst = true;
+      this.showSecond = false;
+    } else {
+      this.showFirst = false;
+      this.showSecond = true;
+    }
 
- save(){
-  console.log("------ For döngüsü *-*-*-*-*-*-*-*-*-*");
+    switch (num) {
+      case 1:
+        this.showFirst = true;
+        this.showSecond = false;
+        break;
 
-  for(let i = 0; i < 10; i++){
-    console.log(i);
+      case 2:
+        this.showFirst = false;
+        this.showSecond = true;
+        break;
+    }
   }
-
-  console.log("*-*-*-*-*-*-*-*-* Listeyi For ile dönme *-*-*-*-*-*-*-*-*-*");
-
-  for(let i = 0; i < this.todos.length; i++){
-    console.log(this.todos[i].work);
-  }
-
-  console.log("*-*-*-*-*-*-*-*-* listeyi foreach ile dönme *-*-*-*-*-*-*-*-*-*");
-
-  this.todos.forEach((val)=> {
-    console.log(val.work);
-    console.log(val.isCompleted);
-  })
-
-  console.log("*-*-*-*-*-*-*-*-* Listeyi for of ile dönme *-*-*-*-*-*-*-*-*-*");
-
-  for(let data of this.todos){  //for of  da async kodlama yapabiliyoruz
-    console.log(data.work);
-    console.log(data.isCompleted);
-  }
-
-  console.log("*-*-*-*-*-*-*-*-* Listeyi for in ile dönme *-*-*-*-*-*-*-*-*-*");
-
-  for(let index in this.todos){
-    console.log(index);
-  }
- }
-}
-
-export class TodoModel{
-  work: string = "";
-  isCompleted: boolean = false;
 }
