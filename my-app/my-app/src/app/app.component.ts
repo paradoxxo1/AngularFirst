@@ -18,12 +18,13 @@ export class AppComponent {
   constructor(private _app: AppService
 
   ) {
-    _app.get().subscribe(res => {
+    _app.get((res) => {
       console.log(res);
+
     })
   }
-  save(){
-    this._app.add({userId:1, title:"deneme", completed:false,id:0}).subscribe(res=>{
+  save() {
+    this._app.add({ userId: 1, title: "deneme", completed: false, id: 0 }, (res) => {
       console.log(res);
     })
   }
